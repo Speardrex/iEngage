@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query</title>
+    <link rel="stylesheet" href="function.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Query</h1>
+    </header>
+
+  
+    <section class="search-filter">
+        <input type="text" placeholder="Search questions..." id="search-bar">
+        <select id="category-filter">
+            <option value="">All Categories</option>
+            <option value="academics">Academics</option>
+            <option value="campus-life">Campus Life</option>
+            <option value="career">Career</option>
+            <option value="housing">Housing</option>
+        </select>
+    </section>
+
+    
+    <section class="ask-question">
+        <h2>Ask a Question</h2>
+        <form id="question-form">
+            <textarea placeholder="Type your question here..." required></textarea>
+            <input type="text" placeholder="Add tags (e.g., exams, internships)">
+            <label>
+                <input type="checkbox"> Post anonymously
+            </label>
+            <button type="submit">Post Question</button>
+        </form>
+    </section>
+
+
+    <section class="questions">
+        <h2>Top Questions</h2>
+
+        
+        <div class="question-card">
+            <h3>How do I prepare for exams effectively?</h3>
+            <p>Posted by: <span>User123</span> | Tags: <span>exams, academics</span></p>
+            <div class="question-actions">
+                <button class="upvote">Upvote</button>
+                <button class="answer">Answer</button>
+                <button class="best-answer">Mark Best Answer</button>
+            </div>
+            <div class="answer-list">
+                <p><strong>Answer:</strong> Start by organizing your study materials...</p>
+                
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="notifications">
+        <h2>Notifications</h2>
+        <p>No new notifications</p>
+    </section>
+
+    
+    <section class="leaderboard">
+        <h2>Top Contributors</h2>
+        <ul>
+            <li>User123 - 1500 points</li>
+            <li>User456 - 1200 points</li>
+            <li>User789 - 1000 points</li>
+        </ul>
+    </section>
+
+    
+    <section class="expert-insights">
+        <h2>Ask an Expert</h2>
+        <p>Need specific help? Reach out to one of our experts!</p>
+        <button>Request Expert Help</button>
+    </section>
+
+    
+    <section class="related-questions">
+        <h2>Related Questions</h2>
+        <ul>
+            <li><a href="#">How to handle exam stress?</a></li>
+            <li><a href="#">Tips for time management in college?</a></li>
+           
+    </section>
+
+    
+    <section class="chatrooms">
+        <h2>Community Chatrooms</h2>
+        <p><a href="#">Join the "Exam Prep" chatroom</a></p>
+        <p><a href="#">Join the "Internships" chatroom</a></p>
+    </section>
+</body>
+</html>

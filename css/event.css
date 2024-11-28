@@ -1,0 +1,164 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Basic Layout */
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  /* Header */
+  .header {
+    background: linear-gradient(to bottom, #01242e, #2BAAAD);
+        color: #FFFFFF;
+         
+        margin: 0;
+        text-align: center;
+    }
+
+  .header h1 {
+    display: inline-block;
+  }
+  .header nav {
+    float: right;
+  }
+  .header nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+  }
+  .header nav a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background-color: #F4F4F9;
+    padding: 60px 0;
+    text-align: center;
+  }
+  .hero h2 {
+    font-size: 2.5em;
+  }
+  .hero p {
+    margin: 10px 0 20px;
+    color: #555;
+  }
+  .cta-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .cta-button:hover {
+    background-color: #45A049;
+  }
+  
+  /* Project Dashboard */
+  .project-dashboard {
+    padding: 40px 0;
+  }
+  .project-dashboard h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .filters {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  .filters input[type="text"] {
+    padding: 8px;
+    margin-top: 10px;
+  }
+  .project-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .project-card {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    width: calc(50% - 10px);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+  }
+  .project-card h3 {
+    font-size: 1.2em;
+  }
+  .project-card p {
+    color: #555;
+  }
+  .project-card button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .project-card button:hover {
+    background-color: #45A049;
+  }
+  
+  /* User Profile */
+  .user-profile {
+    padding: 40px 0;
+    text-align: center;
+  }
+  .profile-info {
+    text-align: center;
+    max-width: 400px;
+    margin: auto;
+  }
+  .profile-info img {
+    width: 100px;
+    border-radius: 50%;
+  }
+  .badges {
+    margin-top: 10px;
+  }
+  .badge {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  /* Support Section */
+  .support-section {
+    background-color: #F4F4F9;
+    padding: 40px 0;
+    text-align: center;
+  }
+  .support-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .support-button:hover {
+    background-color: #45A049;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  
