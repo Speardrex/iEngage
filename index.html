@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Sign-Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #01242e, #2BAAAD);
+            color: white;
+        }
+        .container {
+            background: #fff;
+            color: #333;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 400px;
+        }
+        .container h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background: #6B73FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #000DFF;
+        }
+        .toggle-link {
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            color: #6B73FF;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="form-title">Sign Up</h2>
+        <form id="auth-form" method="POST" action="process.php">
+            <input type="hidden" name="form_type" id="form-type" value="signup">
+            <input type="text" name="name" id="name-field" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <p class="toggle-link" id="toggle-form">Already have an account? Log In</p>
+    </div>
+
+    <script>
+        const toggleLink = document.getElementById('toggle-form');
+        const formTitle = document.getElementById('form-title');
+        const authForm = document.getElementById('auth-form');
+        const formTypeInput = document.getElementById('form-type');
+        const nameField = document.getElementById('name-field');
+
+        toggleLink.addEventListener('click', () => {
+            if (formTypeInput.value === 'signup') {
+                formTypeInput.value = 'login';
+                formTitle.textContent = 'Log In';
+                nameField.style.display = 'none';
+                toggleLink.textContent = "Don't have an account? Sign Up";
+                authForm.querySelector('button').textContent = 'Log In';
+            } else {
+                formTypeInput.value = 'signup';
+                formTitle.textContent = 'Sign Up';
+                nameField.style.display = 'block';
+                toggleLink.textContent = 'Already have an account? Log In';
+                authForm.querySelector('button').textContent = 'Sign Up';
+            }
+        });
+    </script>
+</body>
+</html>

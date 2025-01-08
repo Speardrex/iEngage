@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4caf50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.2em;
+        }
+
+        .intro-section {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #eef2f7;
+        }
+
+        .intro-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .intro-section button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .intro-section button:hover {
+            background-color: #45a049;
+        }
+
+        .features-section {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .features-section h3 {
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .feature-card {
+            flex: 1 1 calc(33.333% - 20px);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .feature-card img {
+            max-width: 60px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h4 {
+            margin: 10px 0;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, select, textarea, button {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .card {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button.details {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .button.collab {
+            background-color: #5a5aff;
+            color: white;
+        }
+
+        .button.pending {
+            background-color: gray;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Collaboration</h1>
+        <p>Collaborate, innovate, and create together seamlessly.</p>
+    </header>
+
+    <section class="intro-section">
+        <h2>Discover New Opportunities</h2>
+        <p>Join projects, connect with like-minded people, and bring your ideas to life.</p>
+        <button>Start Collaborating</button>
+    </section>
+
+    <section class="features-section">
+        <h3>How Collab works?</h3>
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="https://via.placeholder.com/60" alt="Create Project">
+                <h4>Create a Project</h4>
+                <p>Set a title, description, and tags for your project.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://via.placeholder.com/60" alt="Find Collaborators">
+                <h4>Find Collaborators</h4>
+                <p>Invite collaborators or let others join openly.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://via.placeholder.com/60" alt="Track Progress">
+                <h4>Track Progress</h4>
+                <p>Use tools to track tasks and milestones effectively.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="main-container">
+        <h2>Create a Collaboration Post</h2>
+
+        <!-- Form to create a collaboration post -->
+        <form id="collabForm">
+            <input type="text" id="title" placeholder="Title" required>
+            <input type="text" id="project" placeholder="Project" required>
+            <select id="type" required>
+                <option value="" disabled selected>Collaboration Type</option>
+                <option value="Research">Research</option>
+                <option value="Lab Work">Lab Work</option>
+                <option value="Building Something">Building Something</option>
+                <option value="Paper">Paper</option>
+                <option value="Project">Project</option>
+            </select>
+            <input type="text" id="timeline" placeholder="Timeline (e.g., Jan 2025 - Dec 2025)" required>
+            <input type="text" id="skills" placeholder="Skills Required" required>
+            <button type="submit">Create Collaboration</button>
+        </form>
+
+        <!-- Container for displaying collaboration posts -->
+        <div id="collabList"></div>
+    </div>
+
+    <!-- Modal for viewing details -->
+    <div id="modal" class="modal">
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <h3 id="modalTitle"></h3>
+        <p id="modalDetails"></p>
+    </div>
+
+    <script>
+        const collabForm = document.getElementById('collabForm');
+        const collabList = document.getElementById('collabList');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDetails = document.getElementById('modalDetails');
+
+        // Mock Database for Demonstration
+        let collaborations = [];
+
+        // Function to render collaborations
+        function renderCollabs() {
+            collabList.innerHTML = '';
+            collaborations.forEach((collab, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <h3>${collab.title}</h3>
+                    <p><strong>Project:</strong> ${collab.project}</p>
+                    <p><strong>Type:</strong> ${collab.type}</p>
+                    <div class="buttons">
+                        <button class="button details" onclick="showDetails(${index})">See Details</button>
+                        <button class="button collab" onclick="collaborate(${index}, this)">Collab</button>
+                    </div>
+                `;
+                collabList.appendChild(card);
+            });
+        }
+
+        // Handle form submission
+        collabForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const newCollab = {
+                title: document.getElementById('title').value,
+                project: document.getElementById('project').value,
+                type: document.getElementById('type').value,
+                timeline: document.getElementById('timeline').value,
+                skills: document.getElementById('skills').value
+            };
+
+            collaborations.push(newCollab);
+            renderCollabs();
+            collabForm.reset();
+        });
+
+        // Show details modal
+        function showDetails(index) {
+            const collab = collaborations[index];
+            modalTitle.textContent = collab.title;
+            modalDetails.innerHTML = `
+                <p><strong>Project:</strong> ${collab.project}</p>
+                <p><strong>Type:</strong> ${collab.type}</p>
+                <p><strong>Timeline:</strong> ${collab.timeline}</p>
+                <p><strong>Skills Required:</strong> ${collab.skills}</p>
+            `;
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // Handle collaboration
+        function collaborate(index, button) {
+            button.textContent = 'Pending';
+            button.className = 'button pending';
+            alert('Your request for collaboration has been sent!');
+        }
+
+        renderCollabs();
+    </script>
+</body>
+</html>

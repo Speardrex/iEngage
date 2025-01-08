@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Query Page</title>
+    <style>
+        /* Reset and Base Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            padding: 1rem;
+        }
+
+        header {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        main {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .container h2 {
+            margin-bottom: 1rem;
+            color: #007bff;
+        }
+
+        input, select, textarea, button {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1e90ff;
+            box-shadow: 0 0 5px rgba(30, 144, 255, 0.3);
+        }
+
+        button {
+            background: #4caf50;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .scrollable {
+            max-height: 500px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+        }
+
+        .query-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+
+        .query-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .query-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .query-card small {
+            color: gray;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .query-card .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .query-card .actions button {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+
+        .comments {
+            margin-top: 1rem;
+        }
+
+        .comments h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #007bff;
+        }
+
+        .comments .comment {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comments textarea {
+            margin-top: 0.5rem;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Query Management System</h1>
+    </header>
+    <main>
+        <!-- Create Query -->
+        <div class="container">
+            <h2>Create a Query</h2>
+            <form id="query-form">
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="Enter your query title..." required>
+
+                <label for="query-type">Query Type</label>
+                <select id="query-type" required>
+                    <option value="Review">Review</option>
+                    <option value="Awareness">Awareness</option>
+                    <option value="Question">Question</option>
+                    <option value="Suggestion">Suggestion</option>
+                </select>
+
+                <label for="tag">Tag</label>
+                <input type="text" id="tag" placeholder="#example" required>
+
+                <label for="content">Content</label>
+                <textarea id="content" rows="4" placeholder="Write your query..." required></textarea>
+
+                <button type="submit">Submit Query</button>
+            </form>
+        </div>
+
+        <!-- Existing Queries -->
+        <div class="container">
+            <h2>Existing Queries</h2>
+            <input type="text" id="search-bar" placeholder="Search by tag (e.g., #example)" oninput="filterQueries()">
+            <div id="query-list" class="scrollable">
+                <!-- Dynamically populated queries -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let queries = [];
+
+        document.getElementById('query-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const queryType = document.getElementById('query-type').value;
+            const tag = document.getElementById('tag').value;
+            const content = document.getElementById('content').value;
+            const id = Date.now();
+
+            const newQuery = {
+                id,
+                title,
+                queryType,
+                tag,
+                content,
+                createdAt: new Date(),
+                comments: [],
+            };
+
+            queries.push(newQuery);
+            renderQueries();
+            e.target.reset();
+        });
+
+        function renderQueries() {
+            const queryList = document.getElementById('query-list');
+            queryList.innerHTML = '';
+
+            queries.forEach((query) => {
+                const card = document.createElement('div');
+                card.classList.add('query-card');
+
+                card.innerHTML = `
+                    <h3>${query.title}</h3>
+                    <small>${query.tag} | ${timeSince(query.createdAt)}</small>
+                    <p>${query.content}</p>
+                    <div class="actions">
+                        <button onclick="editQuery(${query.id})">Edit</button>
+                        <button onclick="deleteQuery(${query.id})">Delete</button>
+                    </div>
+                    <div class="comments">
+                        <h4>Comments</h4>
+                        <div id="comments-${query.id}">
+                            ${query.comments
+                                .map(
+                                    (comment) => `
+                                <div class="comment">
+                                    <p>${comment.content}</p>
+                                    <small>${timeSince(comment.createdAt)}</small>
+                                </div>
+                            `
+                                )
+                                .join('')}
+                        </div>
+                        <textarea id="comment-input-${query.id}" rows="2" placeholder="Write a comment..."></textarea>
+                        <button onclick="addComment(${query.id})">Add Comment</button>
+                    </div>
+                `;
+
+                queryList.appendChild(card);
+            });
+        }
+
+        function timeSince(date) {
+            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+            const intervals = [
+                { label: 'year', seconds: 31536000 },
+                { label: 'month', seconds: 2592000 },
+                { label: 'day', seconds: 86400 },
+                { label: 'hour', seconds: 3600 },
+                { label: 'minute', seconds: 60 },
+                { label: 'second', seconds: 1 },
+            ];
+
+            for (const interval of intervals) {
+                const count = Math.floor(seconds / interval.seconds);
+                if (count > 0) {
+                    return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+                }
+            }
+            return 'just now';
+        }
+
+        function addComment(queryId) {
+            const input = document.getElementById(`comment-input-${queryId}`);
+            const content = input.value.trim();
+
+            if (content) {
+                const query = queries.find((q) => q.id === queryId);
+                query.comments.push({ content, createdAt: new Date() });
+                input.value = '';
+                renderQueries();
+            }
+        }
+
+        function editQuery(queryId) {
+            const query = queries.find((q) => q.id === queryId);
+            const newContent = prompt('Edit your query content:', query.content);
+
+            if (newContent !== null) {
+                query.content = newContent;
+                renderQueries();
+            }
+        }
+
+        function deleteQuery(queryId) {
+            queries = queries.filter((query) => query.id !== queryId);
+            renderQueries();
+        }
+
+        function filterQueries() {
+            const filter = document.getElementById('search-bar').value.toLowerCase();
+            const filteredQueries = queries.filter((query) =>
+                query.tag.toLowerCase().includes(filter)
+            );
+
+            const queryList = document.getElementById('query-list');
+            queryList.innerHTML = '';
+
+            filteredQueries.forEach((query) => {
+                const card = document.createElement('div');
+                card.classList.add('query-card');
+
+                card.innerHTML = `
+                    <h3>${query.title}</h3>
+                    <small>${query.tag} | ${timeSince(query.createdAt)}</small>
+                    <p>${query.content}</p>
+                `;
+
+                queryList.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
